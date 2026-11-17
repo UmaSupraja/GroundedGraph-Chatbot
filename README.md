@@ -1,41 +1,34 @@
-# LangGraph & Pinecone RAG Chatbot
+# GroundedGraph
 
-### [View the Live LangGraph & Pinecone RAG Chatbot!](https://langgraph-pinecone-rag-chatbot.onrender.com/)
+### [View the live GroundedGraph chatbot](https://langgraph-pinecone-rag-chatbot.onrender.com/)
 
----
+> The free Render tier can sleep when idle, so the first load may take up to a minute.
 
-An intelligent **Retrieval-Augmented Generation (RAG)** chatbot built using **Google Gemini**, **Pinecone**, **LangGraph**, **React**, **TypeScript**, and **Express**.
+GroundedGraph is a Retrieval-Augmented Generation (RAG) chatbot built with **Google Gemini**, **Pinecone**, **LangGraph**, **React**, **TypeScript** and **Express**.
 
-The application is grounded in the **"Agentic AI for Executives"** eBook and retrieves relevant knowledge from the configured vector database before generating grounded responses.
+It answers questions from the *Agentic AI for Executives* eBook. Every answer is checked for relevance, scope and groundedness, and comes with page-level source references. Questions the eBook cannot answer are declined instead of guessed.
 
 ---
 
 ## Features
 
-- Retrieval-Augmented Generation (RAG)
-- Google Gemini-powered response generation
-- Gemini text embeddings
-- Pinecone vector database
+- Retrieval-Augmented Generation over a Pinecone vector index
+- Gemini embeddings and Gemini-powered response generation
 - LangGraph workflow orchestration
-- Semantic document retrieval
 - Document relevance grading
-- Question scope validation
-- Grounded response generation
-- Groundedness validation
-- Source page references
-- Out-of-scope question handling
-- React + TypeScript user interface
+- Question scope validation (out-of-scope questions are declined)
+- Groundedness validation of generated answers
+- Source page references with every answer
+- React + TypeScript chat interface
 - Express backend API
 - Production deployment on Render
 - Python LangGraph + FastAPI reference implementation
 
 ---
 
-# System Architecture
+## System Architecture
 
-The application consists of a React frontend, Express backend, LangGraph RAG workflow, Google Gemini, and Pinecone.
-
-```text
+```
                     User
                      │
                      ▼
@@ -75,26 +68,20 @@ The application consists of a React frontend, Express backend, LangGraph RAG wor
 
 ---
 
-# Project Structure
+## Project Structure
 
-```text
-LangGraph-Pinecone-RAG-Chatbot/
-
-│
+```
+GroundedGraph/
 ├── src/
 │   ├── components/
 │   │   └── ChatWorkbench.tsx
-│   │
 │   └── data/
 │       └── ebook_pages.ts
-│
 ├── server/
 │   ├── rag_workflow.ts
 │   └── pinecone_service.ts
-│
 ├── python_submission/
 │   └── Python LangGraph + FastAPI implementation
-│
 ├── server.ts
 ├── package.json
 ├── vite.config.ts
@@ -105,189 +92,70 @@ LangGraph-Pinecone-RAG-Chatbot/
 
 ---
 
-# Technologies Used
+## Technologies Used
 
-| Technology | Purpose |
-|------------|---------|
-| React | Frontend User Interface |
-| TypeScript | Application Development |
-| Vite | Frontend Development and Build Tool |
-| Express | Backend API Server |
-| LangGraph | RAG Workflow Orchestration |
-| Google Gemini | Embeddings and Response Generation |
-| Pinecone | Vector Database and Similarity Search |
-| Python | Reference RAG Implementation |
-| FastAPI | Python API |
-| dotenv | Environment Variable Management |
-
----
-
-# Knowledge Base
-
-The chatbot is grounded in the eBook:
-
-**Agentic AI for Executives**
-
-The project stores page-level eBook content and uses vector retrieval to identify the most relevant information for a user's question.
-
-The configured Pinecone index is:
-
-```text
-agentic-ai-rag
-```
-
-The embedding model used by the current TypeScript implementation is:
-
-```text
-gemini-embedding-2-preview
-```
-
-with a vector dimension of:
-
-```text
-3072
-```
+| Technology    | Purpose                               |
+| ------------- | ------------------------------------- |
+| React         | Frontend user interface               |
+| TypeScript    | Application development               |
+| Vite          | Frontend dev server and build tool    |
+| Express       | Backend API server                    |
+| LangGraph     | RAG workflow orchestration            |
+| Google Gemini | Embeddings and response generation    |
+| Pinecone      | Vector database and similarity search |
+| Python        | Reference RAG implementation          |
+| FastAPI       | Python API                            |
+| dotenv        | Environment variable management       |
 
 ---
 
-# Retrieval-Augmented Generation (RAG)
+## Knowledge Base
 
-The chatbot follows a structured RAG workflow.
+The chatbot is grounded in the eBook **Agentic AI for Executives**. Page-level content is stored and retrieved through vector search.
 
-### Step 1 — User Question
+| Setting         | Value                         |
+| --------------- | ----------------------------- |
+| Pinecone index  | `agentic-ai-rag`              |
+| Embedding model | `gemini-embedding-2-preview`  |
+| Vector dimension| `3072`                        |
 
-The user submits a question through the React interface.
-
-### Step 2 — Query Processing
-
-The question is processed by the backend RAG workflow.
-
-### Step 3 — Vector Retrieval
-
-The query is embedded and relevant content is retrieved from **Pinecone** using vector similarity search.
-
-### Step 4 — Document Grading
-
-Retrieved documents are evaluated for relevance to the user's question.
-
-### Step 5 — Scope Validation
-
-The workflow checks whether the question can be answered using the configured knowledge base.
-
-### Step 6 — Response Generation
-
-Relevant context is provided to **Google Gemini**, which generates a response grounded in the retrieved content.
-
-### Step 7 — Groundedness Validation
-
-The generated response is checked against the retrieved context.
-
-### Step 8 — Final Response
-
-The validated response is returned to the frontend together with source page references.
+> `gemini-embedding-2-preview` is a preview model and may change or be retired. If you switch models, re-ingest the eBook and recreate the Pinecone index with the matching dimension.
 
 ---
 
-# User Workflow
+## How It Works
 
-```text
-Enter Question
-       │
-       ▼
-Query Processing
-       │
-       ▼
-Generate Embedding
-       │
-       ▼
-Pinecone Similarity Search
-       │
-       ▼
-Retrieve Relevant Documents
-       │
-       ▼
-Grade Document Relevance
-       │
-       ▼
-Check Question Scope
-       │
-       ▼
-Generate Grounded Response
-       │
-       ▼
-Validate Groundedness
-       │
-       ▼
-Display Answer + Sources
+1. **User question:** submitted through the React interface.
+2. **Query processing:** the backend passes the question into the LangGraph workflow.
+3. **Vector retrieval:** the query is embedded and matched against Pinecone.
+4. **Document grading:** retrieved chunks are scored for relevance.
+5. **Scope validation:** the workflow checks whether the eBook can answer the question.
+6. **Response generation:** Gemini answers using only the retrieved context.
+7. **Groundedness validation:** the answer is checked against that context.
+8. **Final response:** the answer is returned with source page references.
+
+### Scope control example
+
+```
+Question: What is the capital of France?
+Result:   The question is outside the scope of the available knowledge base.
 ```
 
 ---
 
-# Grounding and Scope Control
-
-The chatbot is designed to answer questions supported by its configured knowledge base.
-
-The workflow includes relevance and scope checks before response generation.
-
-For example, a question unrelated to the configured eBook can be rejected rather than answered using unsupported information.
-
-```text
-Question:
-What is the capital of France?
-
-Result:
-The question is outside the scope of the available knowledge base.
-```
-
-This helps reduce unsupported responses and keeps the chatbot focused on its intended domain.
-
----
-
-# Response Sources
-
-The chatbot returns relevant source page references along with the generated answer.
-
-This allows users to identify which parts of the eBook were used as supporting context for the response.
-
----
-
-# Application
-
-The frontend provides a chat-based interface where users can:
-
-- Enter questions
-- Receive AI-generated responses
-- View retrieved source references
-- Ask follow-up questions
-- Interact with the RAG-powered assistant
-
----
-
-# Installation
-
-## Clone Repository
+## Installation
 
 ```bash
-git clone https://github.com/UmaSupraja/LangGraph-Pinecone-RAG-Chatbot.git
-
-cd LangGraph-Pinecone-RAG-Chatbot
-```
-
----
-
-## Install Dependencies
-
-```bash
+git clone https://github.com/UmaSupraja/GroundedGraph.git
+cd GroundedGraph
 npm install
 ```
 
----
+### Environment variables
 
-## Configure Environment Variables
+Create a `.env` file in the project root (see `.env.example`):
 
-Create a `.env` file in the project root.
-
-```env
+```
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
 PINECONE_API_KEY=YOUR_PINECONE_API_KEY
 PINECONE_INDEX_NAME=agentic-ai-rag
@@ -295,51 +163,28 @@ PINECONE_HOST=YOUR_PINECONE_HOST
 APP_URL=http://localhost:3000
 ```
 
-Do not commit the `.env` file to GitHub.
+Never commit the `.env` file.
 
----
-
-## Run Development Server
+### Run in development
 
 ```bash
 npm run dev
 ```
 
-The Vite development server will provide the local application URL.
-
----
-
-# Production Build
-
-Build the frontend and backend with:
+### Build and run in production
 
 ```bash
 npm run build
-```
-
-The production build bundles the Express server and frontend assets for deployment.
-
----
-
-# Run Production Server
-
-```bash
 npm start
 ```
 
-The Express server serves the production frontend and API.
-
 ---
 
-# API
+## API
 
-## Chat Endpoint
+### `POST /api/chat`
 
-```text
-POST /api/chat
-```
-
-Example request:
+Request:
 
 ```json
 {
@@ -347,92 +192,44 @@ Example request:
 }
 ```
 
-The backend processes the question through the RAG workflow and returns the generated response with relevant source information.
+The response contains the generated answer and the source page references used to produce it.
 
 ---
 
-# Python Reference Implementation
+## Python Reference Implementation
 
-The project also contains a Python-based RAG implementation using:
-
-- LangGraph
-- LangChain
-- Google Gemini
-- Pinecone
-- FastAPI
-- Uvicorn
-
-The Python implementation provides a reference workflow for the same RAG concept, while the deployed application uses the TypeScript + Express implementation.
+The `python_submission/` folder contains a Python version of the same workflow using LangGraph, LangChain, Google Gemini, Pinecone, FastAPI and Uvicorn. The deployed application uses the TypeScript + Express implementation.
 
 ---
 
-# Deployment
+## Deployment
 
-The current full-stack application is deployed on **Render**.
-
-### [View the Live LangGraph & Pinecone RAG Chatbot!](https://langgraph-pinecone-rag-chatbot.onrender.com/)
-
-### GitHub Repository
-
-https://github.com/UmaSupraja/LangGraph-Pinecone-RAG-Chatbot
+The app is deployed on Render: [langgraph-pinecone-rag-chatbot.onrender.com](https://langgraph-pinecone-rag-chatbot.onrender.com/)
 
 ---
 
-# Security
+## Security
 
-API credentials are loaded through environment variables rather than being stored in application source code.
-
-The repository uses:
-
-```text
-.env
-.env.example
-.gitignore
-```
-
-The `.env` file should remain local and should never be committed to the repository.
-
-For any credential that has previously been exposed, revoke or rotate it before using the project in a new environment.
+- API keys are loaded from environment variables, never hard-coded.
+- `.env` is listed in `.gitignore`; only `.env.example` is committed.
+- If any credential was ever exposed (for example in an old commit), revoke and rotate it before using the project elsewhere.
 
 ---
 
-# Project Status
+## Roadmap
 
-The application is currently deployed and available through the Render production URL.
-
-The deployed system includes:
-
-- React + TypeScript frontend
-- Express backend
-- LangGraph RAG workflow
-- Google Gemini
-- Pinecone retrieval
-- Source references
-- Scope control
-- Grounded response validation
-
----
-
-# Future Enhancements
-
-- Conversation memory
+- Conversation memory for multi-turn follow-ups
 - Streaming responses
 - Persistent chat history
 - Authentication
-- Additional knowledge sources
-- Improved retrieval evaluation
-- Advanced RAG evaluation metrics
-- Expanded document ingestion
-- Additional deployment options
+- Additional knowledge sources and expanded ingestion
+- Retrieval and RAG evaluation metrics
 
 ---
 
-# Author
+## Author
 
 **Supraja Putrevu**
-
-B.Tech – Computer Science & Engineering (Data Science)
-
+B.Tech, Computer Science & Engineering (Data Science)
 AI | Machine Learning | RAG | Software Development
-
-GitHub: https://github.com/UmaSupraja
+GitHub: [@UmaSupraja](https://github.com/UmaSupraja)
