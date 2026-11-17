@@ -1,10 +1,10 @@
-# GroundedGraph
+# GroundedGraph-Chatbot
 
-### [View the live GroundedGraph chatbot](https://langgraph-pinecone-rag-chatbot.onrender.com/)
+### [View the live GroundedGraph-Chatbot](https://langgraph-pinecone-rag-chatbot.onrender.com/)
 
 > The free Render tier can sleep when idle, so the first load may take up to a minute.
 
-GroundedGraph is a Retrieval-Augmented Generation (RAG) chatbot built with **Google Gemini**, **Pinecone**, **LangGraph**, **React**, **TypeScript** and **Express**.
+GroundedGraph-Chatbot is a Retrieval-Augmented Generation (RAG) chatbot built with **Google Gemini**, **Pinecone**, **LangGraph**, **React**, **TypeScript** and **Express**.
 
 It answers questions from the *Agentic AI for Executives* eBook. Every answer is checked for relevance, scope and groundedness, and comes with page-level source references. Questions the eBook cannot answer are declined instead of guessed.
 
@@ -71,7 +71,7 @@ It answers questions from the *Agentic AI for Executives* eBook. Every answer is
 ## Project Structure
 
 ```
-GroundedGraph/
+GroundedGraph-Chatbot/
 ├── src/
 │   ├── components/
 │   │   └── ChatWorkbench.tsx
@@ -146,8 +146,8 @@ Result:   The question is outside the scope of the available knowledge base.
 ## Installation
 
 ```bash
-git clone https://github.com/UmaSupraja/GroundedGraph.git
-cd GroundedGraph
+git clone https://github.com/UmaSupraja/GroundedGraph-Chatbot.git
+cd GroundedGraph-Chatbot
 npm install
 ```
 
