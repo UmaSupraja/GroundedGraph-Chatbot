@@ -230,6 +230,9 @@ The app is deployed on Render: [langgraph-pinecone-rag-chatbot.onrender.com](htt
 ## Author
 
 **Supraja Putrevu**
-B.Tech, Computer Science & Engineering (Data Science)
-AI | Machine Learning | RAG | Software Development
-GitHub: [@UmaSupraja](https://github.com/UmaSupraja)
+
+B.Tech – Computer Science & Engineering (Data Science)
+
+Python Developer | AI Enthusiast | Data Science | Machine Learning
+
+GitHub: [https://github.com/UmaSupraja](https://github.com/UmaSupraja)
