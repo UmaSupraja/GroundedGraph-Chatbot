@@ -2,9 +2,9 @@
  * Service to interact directly with Pinecone Vector Database via REST API
  */
 
-const PINECONE_API_KEY = process.env.PINECONE_API_KEY || 'pcsk_ZkQ5P_Pqes6VQ7oo1i8Hw5zoPKDQgfbqnx6tr13R7kvDe8iTbsqgpWjxEx29xxePWcrQW';
+const PINECONE_API_KEY = process.env.PINECONE_API_KEY || '';
 const PINECONE_INDEX_NAME = process.env.PINECONE_INDEX_NAME || 'agentic-ai-rag';
-const PINECONE_HOST = process.env.PINECONE_HOST || 'https://agentic-ai-rag-jvp8j9d.svc.aped-4627-b74a.pinecone.io';
+const PINECONE_HOST = process.env.PINECONE_HOST || '';
 
 export interface PineconeMatch {
   id: string;
